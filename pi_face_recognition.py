@@ -20,6 +20,9 @@ import datetime
 import cv2
 import xlwt
 import xlrd
+import RPi.GPIO as GPIO
+import time
+
 
 
 MY_SPREADSHEET_ID = '12EC6AmdEUOcwQgLIDZ64rMbR9pDLmvMdb6gjcN0w5mY'
@@ -32,6 +35,9 @@ ap.add_argument("-e", "--encodings", required=True,
     help="path to serialized db of facial encodings")
 args = vars(ap.parse_args())
 
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(18,GPIO.OUT)
+GPIO.output(18,HIGH)
 # load the known faces and embeddings along with OpenCV's Haar
 # cascade for face detection
 print("[INFO] loading encodings + face detector...")
@@ -156,6 +162,10 @@ while True:
             if (name==name1) :
                 count=count+1
                 cv2.imwrite(name+".jpg", frame)
+            if(name!=name1):
+                GPIO.OUTPUT(18,LOW)
+                time.sleep(.8)
+                GPIO.OUTPUT(18,HIGH)
             count2=count2+1
             row=row+1
             x = copy(open_workbook('book2.xls'))
