@@ -4,10 +4,6 @@
 # import the necessary packages
 from __future__ import print_function  
 from xlrd import open_workbook
-from googleapiclient.discovery import build  
-from httplib2 import Http  
-from oauth2client import file, client, tools  
-from oauth2client.service_account import ServiceAccountCredentials 
 from imutils.video import VideoStream
 from imutils.video import FPS
 from xlutils.copy import copy
