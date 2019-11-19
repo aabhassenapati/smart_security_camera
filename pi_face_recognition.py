@@ -25,7 +25,6 @@ import time
 
 
 
-MY_SPREADSHEET_ID = '12EC6AmdEUOcwQgLIDZ64rMbR9pDLmvMdb6gjcN0w5mY'
 
 # construct the argument parser and parse the arguments
 ap = argparse.ArgumentParser()
@@ -57,34 +56,6 @@ row=1
 wb = xlwt.Workbook()
 count = 1
 ws = wb.add_sheet("My Sheet")
-
-def update_sheet(sheetname, name):  
-    """update_sheet method:
-       appends a row of a sheet in the spreadsheet with the 
-       the latest temperature, pressure and humidity sensor data
-    """
-    # authentication, authorization step
-    
-    
-    
-    SCOPES = 'https://www.googleapis.com/auth/spreadsheets'
-    creds = ServiceAccountCredentials.from_json_keyfile_name( 
-            'client_secret.json', SCOPES)
-    service = build('sheets', 'v4', http=creds.authorize(Http()))
-
-    # Call the Sheets API, append the next row of sensor data
-    # values is the array of rows we are updating, its a single row
-    values = [ [ str(datetime.datetime.now()), 
-        'Person', name] ]
-    body = { 'values': values }
-    # call the append API to perform the operation
-    result = service.spreadsheets().values().append(
-                spreadsheetId=MY_SPREADSHEET_ID, 
-                range='Sheet1' + '!A1:C1',
-                valueInputOption='USER_ENTERED', 
-                insertDataOption='INSERT_ROWS',
-                body=body).execute()                     
-
 
 # loop over frames from the video file stream
 while True:
